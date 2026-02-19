@@ -7,6 +7,12 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 
+$routes->get('/dbtest', function () {
+    $db = \Config\Database::connect();
+    return $db->connID ? 'DB OK' : 'DB FAIL';
+});
+
+
 $routes->group('api', function ($routes) {
     // Auth (Public)
     $routes->post('login', 'Api\Auth::login');
