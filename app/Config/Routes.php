@@ -12,6 +12,32 @@ $routes->get('/dbtest', function () {
     return $db->connID ? 'DB OK' : 'DB FAIL';
 });
 
+$routes->get('/envtest', function () {
+    return [
+        'HOST' => getenv('MYSQLHOST'),
+        'PORT' => getenv('MYSQLPORT'),
+        'USER' => getenv('MYSQLUSER'),
+        'DB'   => getenv('MYSQLDATABASE'),
+    ];
+});
+
+$routes->get('/rawdb', function () {
+    $conn = mysqli_connect(
+        getenv('MYSQLHOST'),
+        getenv('MYSQLUSER'),
+        getenv('MYSQLPASSWORD'),
+        getenv('MYSQLDATABASE'),
+        getenv('MYSQLPORT')
+    );
+
+    if (!$conn) {
+        return mysqli_connect_error();
+    }
+
+    return 'RAW CONNECT OK';
+});
+
+
 
 $routes->group('api', function ($routes) {
     // Auth (Public)
