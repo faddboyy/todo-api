@@ -25,11 +25,11 @@ $routes->get('/envtest', function () {
 $routes->get('/rawdb', function () {
 
     $conn = mysqli_connect(
-        getenv('database.default.hostname'),
-        getenv('database.default.username'),
-        getenv('database.default.password'),
-        getenv('database.default.database'),
-        getenv('database.default.port')
+        "mysql.railway.internal",
+        "root",
+        "IZppgTQEAidXyBlfeXmzcCrmynnUslQu",
+        "railway",
+        3306
     );
 
     if (!$conn) {
