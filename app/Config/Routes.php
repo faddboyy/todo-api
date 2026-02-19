@@ -14,28 +14,31 @@ $routes->get('/dbtest', function () {
 
 $routes->get('/envtest', function () {
     return [
-        'HOST' => getenv('MYSQLHOST'),
-        'PORT' => getenv('MYSQLPORT'),
-        'USER' => getenv('MYSQLUSER'),
-        'DB'   => getenv('MYSQLDATABASE'),
+        getenv('database.default.hostname'),
+        getenv('database.default.username'),
+        getenv('database.default.password'),
+        getenv('database.default.database'),
+        getenv('database.default.port')
     ];
 });
 
 $routes->get('/rawdb', function () {
+
     $conn = mysqli_connect(
-        getenv('MYSQLHOST'),
-        getenv('MYSQLUSER'),
-        getenv('MYSQLPASSWORD'),
-        getenv('MYSQLDATABASE'),
-        getenv('MYSQLPORT')
+        getenv('database.default.hostname'),
+        getenv('database.default.username'),
+        getenv('database.default.password'),
+        getenv('database.default.database'),
+        getenv('database.default.port')
     );
 
     if (!$conn) {
         return mysqli_connect_error();
     }
 
-    return 'RAW CONNECT OK';
+    return "RAW CONNECT OK";
 });
+
 
 
 
